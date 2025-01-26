@@ -31,7 +31,7 @@ app.get('/movie/:id', (req, res) => {
             </style>
         </head>
         <body>
-            <iframe class="video" src="${targetUrl} allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"" allowfullscreen></iframe>
+            <iframe class="video" src="${targetUrl}" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
             <script>
                 // After the page is loaded, apply sandbox to all iframes
                 window.onload = function() {
