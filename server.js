@@ -1,4 +1,4 @@
-const express = require('express');
+use sandbox to stop popunderads: const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -31,11 +31,8 @@ app.get('/movie/:id', (req, res) => {
             </style>
         </head>
         <body>
-            <iframe class="video" src="${targetUrl}" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+            <iframe class="video" src="${targetUrl} allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"" allowfullscreen></iframe>
             <script>
-                // Disable window.open within iframe to prevent pop-ups
-                window.open = function() { return null; };
-
                 // After the page is loaded, apply sandbox to all iframes
                 window.onload = function() {
                     const iframes = document.querySelectorAll('iframe');
@@ -77,9 +74,6 @@ app.get('/tv/:id/:season/:episode', (req, res) => {
         <body>
             <iframe class="video" src="${videoUrl}" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
             <script>
-                // Disable window.open within iframe to prevent pop-ups
-                window.open = function() { return null; };
-
                 // After the page is loaded, apply sandbox to all iframes
                 window.onload = function() {
                     const iframes = document.querySelectorAll('iframe');
