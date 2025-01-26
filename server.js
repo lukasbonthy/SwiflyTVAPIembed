@@ -49,7 +49,7 @@ app.get('/movie/:id', (req, res) => {
 // TV Episode route
 app.get('/tv/:id/:season/:episode', (req, res) => {
     const { id, season, episode } = req.params;
-    const videoUrl = `https://vidlink.pro/tv/${id}/${season}/${episode}`; // Embed this URL directly
+    const videoUrl = `https://embed.spencerdevs.xyz/tv/${id}/${season}/${episode}`; // Embed this URL directly
 
     // Send HTML response with embedded video player
     res.send(`
