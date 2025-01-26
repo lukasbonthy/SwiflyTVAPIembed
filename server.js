@@ -47,7 +47,7 @@ app.get('/movie/:id', (req, res) => {
 });
 
 // TV Episode route
-app.get('/tv/:id/:season/:episode', (req, res) => {
+app.get('tv/:id/:season/:episode', (req, res) => {
     const { id, season, episode } = req.params;
     const videoUrl = `https://embed.spencerdevs.xyz/tv/${id}/${season}/${episode}`; // Embed this URL directly
 
