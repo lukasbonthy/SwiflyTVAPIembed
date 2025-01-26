@@ -31,16 +31,7 @@ app.get('/movie/:id', (req, res) => {
             </style>
         </head>
         <body>
-            <iframe class="video" src="${targetUrl}" allowfullscreen></iframe>
-            <script>
-                // After the page is loaded, apply sandbox to all iframes
-                window.onload = function() {
-                    const iframes = document.querySelectorAll('iframe');
-                    iframes.forEach(function(iframe) {
-                        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
-                    });
-                };
-            </script>
+            <iframe class="video" src="${targetUrl}" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
         </body>
         </html>
     `);
@@ -72,16 +63,7 @@ app.get('/tv/:id/:season/:episode', (req, res) => {
             </style>
         </head>
         <body>
-            <iframe class="video" src="${videoUrl}" allowfullscreen></iframe>
-            <script>
-                // After the page is loaded, apply sandbox to all iframes
-                window.onload = function() {
-                    const iframes = document.querySelectorAll('iframe');
-                    iframes.forEach(function(iframe) {
-                        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
-                    });
-                };
-            </script>
+            <iframe class="video" src="${videoUrl}" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
         </body>
         </html>
     `);
