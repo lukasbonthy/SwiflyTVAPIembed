@@ -8,7 +8,7 @@ app.use(express.static('public'));
 // Movie route
 app.get('/movie/:id', (req, res) => {
     const movieId = req.params.id;
-    const targetUrl = `https://embed.spencerdevs.xyz/${movieId}`; // Embed this URL directly
+    const targetUrl = `https://embed.spencerdevs.xyz/movie/${movieId}`; // Embed this URL directly
 
     // Send HTML response with embedded video player
     res.send(`
