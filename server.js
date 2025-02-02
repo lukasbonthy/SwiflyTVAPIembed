@@ -8,7 +8,7 @@ app.use(express.static('public'));
 // Movie route
 app.get('/movie/:id', (req, res) => {
     const movieId = req.params.id;
-    const targetUrl = `https://embed.spencerdevs.xyz/movie/${movieId}`; // Embed this URL directly
+    const targetUrl = `https://vidsrc.su/embed/movie/${movieId}`; // Embed this URL directly
 
     // Send HTML response with embedded video player
     res.send(`
@@ -49,7 +49,7 @@ app.get('/movie/:id', (req, res) => {
 // TV Episode route
 app.get('/tv/:id/:season/:episode', (req, res) => {
     const { id, season, episode } = req.params;
-    const videoUrl = `https://embed.spencerdevs.xyz/tv/${id}/${season}/${episode}`; // Embed this URL directly
+    const videoUrl = `https://vidsrc.su/embed/tv/${id}/${season}/${episode}`; // Embed this URL directly
 
     // Send HTML response with embedded video player
     res.send(`
