@@ -1,10 +1,9 @@
 /******************************************************************************
-CineLite theme — modern, accessible, responsive
-Drop-in replacement; no HTML changes required.
+Modern, accessible, responsive restyle — drop-in only (no HTML changes)
 ******************************************************************************/
 
+/* Theme tokens */
 :root{
-  /* Base palette */
   --bg: hsl(240 33% 96%);
   --bg-elev: hsl(240 33% 98% / .65);
   --text: hsl(230 17% 15%);
@@ -12,8 +11,6 @@ Drop-in replacement; no HTML changes required.
   --primary: hsl(258 92% 60%);
   --primary-2: hsl(258 92% 52%);
   --ring: hsl(210 100% 60%);
-
-  /* Layout & type */
   --container: 1100px;
   --radius: 16px;
   --radius-sm: 12px;
@@ -21,8 +18,6 @@ Drop-in replacement; no HTML changes required.
   --fs-md: clamp(1.05rem, .95rem + .6vw, 1.2rem);
   --fs-lg: clamp(1.2rem, 1.05rem + .9vw, 1.4rem);
   --fs-hero: clamp(2rem, 1.4rem + 3vw, 3rem);
-
-  /* Shadows */
   --shadow-1: 0 10px 30px hsl(240 27% 20% / .06), 0 2px 8px hsl(240 27% 20% / .05);
   --shadow-2: 0 22px 60px hsl(240 27% 20% / .18);
 }
@@ -42,24 +37,23 @@ Drop-in replacement; no HTML changes required.
 /* Reset & a11y */
 *,
 *::before,
-*::after { box-sizing: border-box; }
-html, body { height: 100%; }
-body { margin: 0; }
+*::after{ box-sizing: border-box; }
+html, body{ height: 100%; }
+body{ margin: 0; }
 [hidden]{ display:none !important; }
-:focus-visible{ outline:3px solid var(--ring); outline-offset:2px; border-radius:8px; }
+:focus-visible{ outline: 3px solid var(--ring); outline-offset: 2px; border-radius: 8px; }
 
-/* Typography */
+/* Fonts (keep your HK Grotesk, add system fallbacks) */
 @font-face {
   font-family: HK Grotesk;
-  src: url("https://cdn.glitch.me/605e2a51-d45f-4d87-a285-9410ad350515%2FHKGrotesk-Regular.otf?v=1603136326027")
-    format("opentype");
+  src: url("https://cdn.glitch.me/605e2a51-d45f-4d87-a285-9410ad350515%2FHKGrotesk-Regular.otf?v=1603136326027") format("opentype");
 }
 @font-face {
   font-family: HK Grotesk;
   font-weight: bold;
-  src: url("https://cdn.glitch.me/605e2a51-d45f-4d87-a285-9410ad350515%2FHKGrotesk-Bold.otf?v=1603136323437")
-    format("opentype");
+  src: url("https://cdn.glitch.me/605e2a51-d45f-4d87-a285-9410ad350515%2FHKGrotesk-Bold.otf?v=1603136323437") format("opentype");
 }
+
 body{
   font-family: "HK Grotesk", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   color: var(--text);
@@ -71,152 +65,190 @@ body{
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Container helpers */
+/* ----- Layout scaffolding (no markup change needed) ----- */
 .container{ width:min(100% - 2rem, var(--container)); margin-inline:auto; }
 
-/* Header */
-.site-header{
-  display:flex; align-items:center; justify-content:space-between;
-  padding-block:1rem;
+.wrapper{
+  min-height: calc(100svh - 120px);
+  display:grid;
+  place-items:start;
+  margin:0;
+  padding: 1rem 0 2rem;
 }
-.brand{ display:inline-flex; align-items:center; gap:.6rem; color:inherit; text-decoration:none; font-size:var(--fs-lg); }
-.header-actions{ display:inline-flex; gap:.6rem; align-items:center; }
 
-/* Wrapper & content */
-.wrapper{ min-height:calc(100svh - 120px); display:grid; place-items:start; }
-.content{ width:100%; padding-block:1rem 2rem; }
-.content--player{ padding-top:.5rem; }
-
-/* Headings */
-.title{
-  margin:.5rem 0 1rem;
-  font-weight:800; font-size:var(--fs-hero); line-height:1.06; letter-spacing:-.02em;
+.content{
+  width:100%;
+  max-width: var(--container);
+  margin-inline:auto;
+  display:grid;
+  gap: 1rem;
 }
-.lead{ color:var(--muted); font-size:var(--fs-md); margin-top:-.4rem; }
 
-/* Grid & cards */
-.grid{
-  margin-top:1rem;
-  display:grid; gap:1rem;
-  grid-template-columns: repeat(12, 1fr);
-}
-.card{
-  grid-column: span 12;
+/* Create subtle “card” look for any direct sections inside .content */
+.content > section,
+.content > div:not(.hero),
+.content > form,
+.content > article {
   background: var(--bg-elev);
-  border:1px solid hsl(240 10% 70% / .18);
-  border-radius:var(--radius);
-  padding:1.1rem;
-  box-shadow:var(--shadow-1);
-  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border: 1px solid hsl(240 10% 70% / .18);
+  border-radius: var(--radius);
+  padding: 1.1rem;
+  box-shadow: var(--shadow-1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   transition: transform .18s ease, box-shadow .18s ease;
 }
-.card:hover{ transform: translateY(-2px); box-shadow: var(--shadow-2); }
-@media (min-width: 760px){
-  .card:nth-child(1){ grid-column: span 6; }
-  .card:nth-child(2){ grid-column: span 6; }
-  .card:nth-child(3){ grid-column: span 12; }
-}
+.content > section:hover,
+.content > div:not(.hero):hover,
+.content > form:hover,
+.content > article:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
 
-/* Forms */
-.form{ display:grid; gap:.6rem; }
-.grid-3{ display:grid; gap:.6rem; grid-template-columns:1fr; }
-@media (min-width:680px){ .grid-3{ grid-template-columns:repeat(3, 1fr); } }
-label{ font-weight:700; margin-bottom:.2rem; }
+/* Titles */
+.title{
+  margin: .25rem 0 .5rem;
+  font-weight: 800;
+  font-size: var(--fs-hero);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+h2{ font-size: var(--fs-lg); margin: 0 0 .5rem; color: hsl(258 92% 46%); }
+.lead{ color: var(--muted); font-size: var(--fs-md); margin: .25rem 0 1rem; }
+
+/* ----- Forms & controls ----- */
+form{ display:grid; gap:.6rem; }
+label{ font-weight:700; margin-bottom:.15rem; }
 input, select, textarea, button{ font: inherit; }
-input[type="text"], input[type="number"], input[type="url"], textarea, select{
-  width:100%; padding:.85rem 1rem;
-  border:1px solid hsl(240 10% 70% / .4);
-  background:hsl(0 0% 100% / .85);
-  color:var(--text);
-  border-radius:var(--radius-sm);
+
+input[type="text"],
+input[type="number"],
+input[type="url"],
+input[type="email"],
+input[type="search"],
+textarea,
+select{
+  width: 100%;
+  max-width: 560px; /* keeps long inputs from stretching across the page */
+  padding: .85rem 1rem;
+  border: 1px solid hsl(240 10% 70% / .4);
+  background: hsl(0 0% 100% / .9);
+  color: var(--text);
+  border-radius: var(--radius-sm);
   transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
 }
-input::placeholder, textarea::placeholder{ color:hsl(240 5% 52%); }
+input::placeholder, textarea::placeholder{ color: hsl(240 5% 52%); }
 input:focus-visible, textarea:focus-visible, select:focus-visible{
   border-color: var(--primary);
   box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 28%, transparent);
   outline: none;
 }
 
+/* File input looks nicer */
+input[type="file"]{
+  max-width: 560px;
+  padding: .6rem;
+  border-radius: 12px;
+  background: hsl(0 0% 100% / .9);
+}
+
 /* Buttons */
-.btn{
-  --b1: var(--primary); --b2: var(--primary-2);
+.btn,
+button,
+input[type="button"],
+input[type="submit"]{
+  --b1: var(--primary);
+  --b2: var(--primary-2);
   --fg: #fff;
   display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
-  padding:.7rem 1rem; border:none; border-radius:12px;
-  color:var(--fg);
+  padding:.7rem 1rem;
+  border:none;
+  border-radius: 12px;
+  color: var(--fg);
   background: linear-gradient(180deg, var(--b1), var(--b2));
   box-shadow: 0 10px 22px hsl(258 92% 40% / .22);
   cursor:pointer;
   transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
-  text-decoration:none; white-space:nowrap;
+  width: fit-content;
 }
-.btn:hover{ filter:brightness(1.05); transform:translateY(-1px); }
-.btn:active{ transform:translateY(0); filter:brightness(.98); }
-.btn--primary{}
-.btn--ghost{
-  background:hsl(240 0% 100% / .85);
-  color:var(--text); border:1px solid hsl(240 10% 70% / .35);
-  box-shadow:none;
-}
-.btn--remix{
-  background:#fff; color:#000; border:1px solid hsl(240 10% 40% / .25);
-  border-radius:12px; padding:.6rem .9rem; box-shadow: 0 6px 12px hsl(0 0% 0% / .06);
+.btn:hover, button:hover{ filter:brightness(1.05); transform: translateY(-1px); }
+.btn:active, button:active{ transform: translateY(0); filter:brightness(.98); }
+
+/* “Ghost” button look if you already have plain buttons you don’t want primary */
+.button-ghost{
+  background: hsl(240 0% 100% / .85);
+  color: var(--text);
+  border: 1px solid hsl(240 10% 70% / .35);
+  box-shadow: none;
 }
 
-/* Player */
-.player-card{
-  background: var(--bg-elev);
-  border:1px solid hsl(240 10% 70% / .18);
-  border-radius:var(--radius);
-  padding: .8rem;
-  box-shadow: var(--shadow-1);
+/* Help text */
+.form-help{ color: var(--muted); font-size: var(--fs-sm); }
+
+/* ----- Images / avatars (prevents huge logo/profile previews like in your screenshot) ----- */
+img{
+  height: auto;
+  max-width: 100%;
 }
-.player-aspect{
-  position:relative; width:100%;
-  aspect-ratio: 16 / 9;
-  background: hsl(240 10% 20% / .3);
-  border-radius: calc(var(--radius) - 4px);
-  overflow:hidden;
+.content img{
+  max-width: 160px;        /* cap general images in content */
+  border-radius: 12px;
+  display: block;
 }
-.video{
-  position:absolute; inset:0; width:100%; height:100%;
-  border:0; display:block;
-  background:#000;
+img.avatar, img.profile, img[alt*="profile" i]{ /* common avatar fallbacks */
+  max-width: 128px;
+  border-radius: 999px;
+  border: 1px solid hsl(240 10% 70% / .35);
 }
 
-/* Loader overlay */
-.loader{
-  position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:.6rem;
-  background: linear-gradient(0deg, hsl(240 10% 10% / .45), hsl(240 10% 10% / .45));
-  color:#fff; transition: opacity .25s ease; pointer-events:none;
-}
-.spinner{
-  width:18px; height:18px; border-radius:50%;
-  border:2.5px solid hsl(0 0% 100% / .4);
-  border-top-color:#fff; animation: spin .8s linear infinite;
-}
-@keyframes spin{ to { transform: rotate(360deg); } }
+/* If you have a big brand logo at the top and want it larger, opt it back in with class="hero" */
+img.hero{ max-width: 260px; }
 
-.disclaimer{
-  margin:.6rem .2rem 0; color:var(--muted); font-size:var(--fs-sm);
+/* ----- Room list & sections (works whether you use ul/li or plain divs) ----- */
+.rooms, #rooms, .room-list{
+  display:grid; gap:.6rem;
+}
+.rooms > * , .room-list > *{
+  background: hsl(0 0% 100% / .8);
+  border: 1px solid hsl(240 10% 70% / .25);
+  border-radius: 12px;
+  padding: .75rem 1rem;
+}
+.room-title{ font-weight: 700; }
+.room-meta{ color: var(--muted); font-size: var(--fs-sm); }
+.room-code{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  background: hsl(240 33% 96%);
+  padding: .2rem .4rem; border-radius: 6px;
+  border: 1px solid hsl(240 10% 70% / .35);
 }
 
-/* Footer */
+/* ----- Chat (if you render it) ----- */
+.chat{ display:grid; gap:.4rem; max-height: 40vh; overflow:auto; padding-right:.25rem; }
+.msg{
+  background: hsl(0 0% 100% / .8);
+  border: 1px solid hsl(240 10% 70% / .25);
+  border-radius: 12px;
+  padding: .5rem .75rem;
+  font-size: var(--fs-sm);
+}
+.msg .user{ font-weight:700; margin-right:.3rem; }
+.msg .time{ color: var(--muted); font-size: .85em; }
+
+/* ----- Footer ----- */
 .footer{
   display:flex; justify-content:space-between; align-items:center;
   gap:.75rem; margin: 1.2rem auto 1rem; padding-top:1rem;
-  border-top:1px solid hsl(240 10% 70% / .25);
+  border-top: 1px solid hsl(240 10% 70% / .25);
+  width: min(100% - 2rem, var(--container));
 }
 
-/* Light/Dark icon helpers */
+/* Light/Dark inline helpers if you ever add a toggle */
 .only-dark{ display:none; }
 @media (prefers-color-scheme: dark){
   .only-dark{ display:inline; }
   .only-light{ display:none; }
 }
 
-/* Respect reduced motion */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   *{ animation:none !important; transition:none !important; }
 }
